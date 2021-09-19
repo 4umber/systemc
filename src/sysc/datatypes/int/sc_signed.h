@@ -882,7 +882,12 @@ public:
     void scan( ::std::istream& is = ::std::cin );
 
 protected:
-    static sc_core::sc_vpool<sc_signed_bitref> m_pool;
+    //static sc_core::sc_vpool<sc_signed_bitref> m_pool;
+
+	static sc_signed_bitref* pool_allocate() {
+		static sc_core::sc_vpool<sc_signed_bitref> m_pool(9);
+		return m_pool.allocate();
+	}
 };
 
 
@@ -1076,7 +1081,12 @@ public:
     void scan( ::std::istream& is = ::std::cin );
 
 protected:
-    static sc_core::sc_vpool<sc_signed_subref> m_pool;
+    //static sc_core::sc_vpool<sc_signed_subref> m_pool;
+
+	static sc_signed_subref* pool_allocate() {
+		static sc_core::sc_vpool<sc_signed_subref> m_pool(9);
+		return m_pool.allocate();
+	}
 };
 
 
@@ -1207,7 +1217,7 @@ public:
         {
             check_index(i);
 	    sc_signed_bitref* result_p =
-	        sc_signed_bitref::m_pool.allocate();
+	        sc_signed_bitref::pool_allocate();
 	    result_p->initialize( this, i );
 	    return *result_p;
 	}
@@ -1216,7 +1226,7 @@ public:
         {
             check_index(i);
 	    sc_signed_bitref* result_p =
-	        sc_signed_bitref::m_pool.allocate();
+	        sc_signed_bitref::pool_allocate();
 	    result_p->initialize( this, i );
 	    return *result_p;
 	}
@@ -1225,7 +1235,7 @@ public:
         {
             check_index(i);
 	    sc_signed_bitref* result_p =
-	        sc_signed_bitref::m_pool.allocate();
+	        sc_signed_bitref::pool_allocate();
 	    result_p->initialize( this, i );
 	    return *result_p;
 	}
@@ -1234,7 +1244,7 @@ public:
         {
             check_index(i);
 	    sc_signed_bitref* result_p =
-	        sc_signed_bitref::m_pool.allocate();
+	        sc_signed_bitref::pool_allocate();
 	    result_p->initialize( this, i );
 	    return *result_p;
 	}
@@ -1267,7 +1277,7 @@ public:
         {
 	    check_range( i, j );
 	    sc_signed_subref* result_p =
-	        sc_signed_subref::m_pool.allocate();
+	        sc_signed_subref::pool_allocate();
 	    result_p->initialize( this, i, j );
 	    return *result_p;
 	}
@@ -1276,7 +1286,7 @@ public:
         {
 	    check_range( i, j );
 	    sc_signed_subref* result_p =
-	        sc_signed_subref::m_pool.allocate();
+	        sc_signed_subref::pool_allocate();
 	    result_p->initialize( this, i, j );
 	    return *result_p;
 	}
@@ -1285,7 +1295,7 @@ public:
         {
 	    check_range( i, j );
 	    sc_signed_subref* result_p =
-	        sc_signed_subref::m_pool.allocate();
+	        sc_signed_subref::pool_allocate();
 	    result_p->initialize( this, i, j );
 	    return *result_p;
 	}
@@ -1294,7 +1304,7 @@ public:
         {
 	    check_range( i, j );
 	    sc_signed_subref* result_p =
-	        sc_signed_subref::m_pool.allocate();
+	        sc_signed_subref::pool_allocate();
 	    result_p->initialize( this, i, j );
 	    return *result_p;
 	}

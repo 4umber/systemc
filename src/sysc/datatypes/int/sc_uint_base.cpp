@@ -101,7 +101,7 @@ sc_uint_concref_invalid_length( int length )
 //  Proxy class for sc_uint bit selection (r-value and l-value).
 // ----------------------------------------------------------------------------
 
-sc_core::sc_vpool<sc_uint_bitref> sc_uint_bitref::m_pool(9);
+//sc_core::sc_vpool<sc_uint_bitref> sc_uint_bitref::m_pool(9);
 
 // concatenation methods:
 
@@ -240,7 +240,7 @@ bool sc_uint_subref_r::concat_get_data( sc_digit* dst_p, int low_i ) const
 //  Proxy class for sc_uint part selection (r-value and l-value).
 // ----------------------------------------------------------------------------
 
-sc_core::sc_vpool<sc_uint_subref> sc_uint_subref::m_pool(9);
+//sc_core::sc_vpool<sc_uint_subref> sc_uint_subref::m_pool(9);
 
 // assignment operators
 

@@ -788,7 +788,12 @@ public:
     void scan( ::std::istream& is = ::std::cin );
 
 protected:
-    static sc_core::sc_vpool<sc_unsigned_bitref> m_pool;
+    //static sc_core::sc_vpool<sc_unsigned_bitref> m_pool;
+
+	static sc_unsigned_bitref* pool_allocate() {
+		static sc_core::sc_vpool<sc_unsigned_bitref> m_pool(9);
+		return m_pool.allocate();
+	}
 };
 
 
@@ -978,7 +983,12 @@ public:
     void scan( ::std::istream& is = ::std::cin );
 
 protected:
-    static sc_core::sc_vpool<sc_unsigned_subref> m_pool;
+    //static sc_core::sc_vpool<sc_unsigned_subref> m_pool;
+
+	static sc_unsigned_subref* pool_allocate() {
+		static sc_core::sc_vpool<sc_unsigned_subref> m_pool(9);
+		return m_pool.allocate();
+	}
 };
 
 
@@ -1111,7 +1121,7 @@ public:
         {
             check_index(i);
             sc_unsigned_bitref* result_p =
-	    	sc_unsigned_bitref::m_pool.allocate();
+	    	sc_unsigned_bitref::pool_allocate();
             result_p->initialize( this, i );
             return *result_p;
         }
@@ -1120,7 +1130,7 @@ public:
         {
             check_index(i);
             sc_unsigned_bitref* result_p =
-	        sc_unsigned_bitref::m_pool.allocate();
+	        sc_unsigned_bitref::pool_allocate();
             result_p->initialize( this, i );
             return *result_p;
         }
@@ -1129,7 +1139,7 @@ public:
         {
             check_index(i);
             sc_unsigned_bitref* result_p =
-	        sc_unsigned_bitref::m_pool.allocate();
+	        sc_unsigned_bitref::pool_allocate();
             result_p->initialize( this, i );
             return *result_p;
         }
@@ -1138,7 +1148,7 @@ public:
         {
             check_index(i);
             sc_unsigned_bitref* result_p =
-	        sc_unsigned_bitref::m_pool.allocate();
+	        sc_unsigned_bitref::pool_allocate();
             result_p->initialize( this, i );
             return *result_p;
         }
@@ -1171,7 +1181,7 @@ public:
         {
             check_range(i,j);
             sc_unsigned_subref* result_p =
-	        sc_unsigned_subref::m_pool.allocate();
+	        sc_unsigned_subref::pool_allocate();
             result_p->initialize( this, i, j );
             return *result_p;
         }
@@ -1180,7 +1190,7 @@ public:
         {
             check_range(i,j);
             sc_unsigned_subref* result_p =
-	        sc_unsigned_subref::m_pool.allocate();
+	        sc_unsigned_subref::pool_allocate();
             result_p->initialize( this, i, j );
             return *result_p;
         }
@@ -1189,7 +1199,7 @@ public:
         {
             check_range(i,j);
             sc_unsigned_subref* result_p =
-	        sc_unsigned_subref::m_pool.allocate();
+	        sc_unsigned_subref::pool_allocate();
             result_p->initialize( this, i, j );
             return *result_p;
         }
@@ -1198,7 +1208,7 @@ public:
         {
             check_range(i,j);
             sc_unsigned_subref* result_p =
-	        sc_unsigned_subref::m_pool.allocate();
+	        sc_unsigned_subref::pool_allocate();
             result_p->initialize( this, i, j );
             return *result_p;
         }
@@ -1955,7 +1965,12 @@ public:
                                          const sc_digit *vd);
 
 public:
-  static sc_core::sc_vpool<sc_unsigned> m_pool;
+  //static sc_core::sc_vpool<sc_unsigned> m_pool;
+
+  static sc_unsigned* pool_allocate() {
+    static sc_core::sc_vpool<sc_unsigned> m_pool(8);
+    return m_pool.allocate();
+  }
 
 private:
 

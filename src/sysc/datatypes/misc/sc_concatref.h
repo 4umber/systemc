@@ -249,11 +249,11 @@ public:
     const sc_unsigned& value() const
         {
             bool           left_non_zero;
-            sc_unsigned*   result_p = sc_unsigned::m_pool.allocate();
+            sc_unsigned*   result_p = sc_unsigned::pool_allocate();
             bool           right_non_zero;
 
             result_p->nbits = result_p->num_bits(m_len);
-	    result_p->ndigits = DIV_CEIL(result_p->nbits);
+        result_p->ndigits = DIV_CEIL(result_p->nbits);
             result_p->digit = (sc_digit*)sc_core::sc_temp_heap.allocate( 
                 sizeof(sc_digit)*result_p->ndigits );
 #if defined(_MSC_VER)
@@ -449,7 +449,12 @@ public:
     } 
 
 public:
-    static sc_core::sc_vpool<sc_concatref> m_pool; // Pool of temporary objects.
+    //static sc_core::sc_vpool<sc_concatref> m_pool; // Pool of temporary objects.
+
+    static sc_concatref* pool_allocate() {
+        static sc_core::sc_vpool<sc_concatref> m_pool(9);
+        return m_pool.allocate();
+    }
 
 public:
     enum concat_flags {
@@ -619,7 +624,13 @@ operator >> ( ::std::istream& is, sc_concatref& a )
 class SC_API sc_concat_bool : public sc_value_base
 {
   protected:
-    static sc_core::sc_vpool<sc_concat_bool> m_pool;  // Temporaries pool.
+    //static sc_core::sc_vpool<sc_concat_bool> m_pool;  // Temporaries pool.
+
+    static sc_concat_bool* pool_allocate() {
+        static sc_core::sc_vpool<sc_concat_bool> m_pool(9);
+        return m_pool.allocate();
+    }
+
     bool                                     m_value; // Value for this obj.
 
   public:
@@ -639,7 +650,7 @@ class SC_API sc_concat_bool : public sc_value_base
 
     static inline sc_concat_bool* allocate( bool v )
     {
-        sc_concat_bool* result_p = m_pool.allocate();
+        sc_concat_bool* result_p = pool_allocate();
         result_p->m_value = v;
         return result_p;
     }
@@ -769,7 +780,7 @@ inline sc_dt::sc_concatref& concat(
 {
     sc_dt::sc_concatref* result_p;     // Proxy for the concatenation.
 
-    result_p = sc_dt::sc_concatref::m_pool.allocate();
+    result_p = sc_dt::sc_concatref::pool_allocate();
     result_p->initialize( a, b );
     return *result_p;
 }
@@ -781,7 +792,7 @@ sc_dt::sc_concatref& concat(
 {
     sc_dt::sc_concatref* result_p;     // Proxy for the concatenation.
 
-    result_p = sc_dt::sc_concatref::m_pool.allocate();
+    result_p = sc_dt::sc_concatref::pool_allocate();
     result_p->initialize( a, b );
     return *result_p;
 }
@@ -794,7 +805,7 @@ sc_dt::sc_concatref& concat(const sc_dt::sc_value_base& a, bool b)
     sc_dt::sc_concatref*         result_p;   // Proxy for the concatenation.
 
     b_p = sc_dt::sc_concat_bool::allocate(b);
-    result_p = sc_dt::sc_concatref::m_pool.allocate();
+    result_p = sc_dt::sc_concatref::pool_allocate();
     result_p->initialize( a, *b_p );
     return *result_p;
 }
@@ -807,7 +818,7 @@ sc_dt::sc_concatref& concat(bool a, const sc_dt::sc_value_base& b)
     sc_dt::sc_concatref*         result_p;   // Proxy for the concatenation.
 
     a_p = sc_dt::sc_concat_bool::allocate(a);
-    result_p = sc_dt::sc_concatref::m_pool.allocate();
+    result_p = sc_dt::sc_concatref::pool_allocate();
     result_p->initialize( *a_p, b );
     return *result_p;
 }
@@ -817,7 +828,7 @@ inline sc_dt::sc_concatref& operator , (
 {
     sc_dt::sc_concatref* result_p;     // Proxy for the concatenation.
 
-    result_p = sc_dt::sc_concatref::m_pool.allocate();
+    result_p = sc_dt::sc_concatref::pool_allocate();
     result_p->initialize( a, b );
     return *result_p;
 }
@@ -829,7 +840,7 @@ sc_dt::sc_concatref& operator , (
 {
     sc_dt::sc_concatref* result_p;     // Proxy for the concatenation.
 
-    result_p = sc_dt::sc_concatref::m_pool.allocate();
+    result_p = sc_dt::sc_concatref::pool_allocate();
     result_p->initialize( a, b );
     return *result_p;
 }
@@ -842,7 +853,7 @@ sc_dt::sc_concatref& operator , (const sc_dt::sc_value_base& a, bool b)
     sc_dt::sc_concatref*         result_p; // Proxy for the concatenation.
 
     b_p = sc_dt::sc_concat_bool::allocate(b);
-    result_p = sc_dt::sc_concatref::m_pool.allocate();
+    result_p = sc_dt::sc_concatref::pool_allocate();
     result_p->initialize( a, *b_p );
     return *result_p;
 }
@@ -855,7 +866,7 @@ sc_dt::sc_concatref& operator , (bool a, const sc_dt::sc_value_base& b)
     sc_dt::sc_concatref*         result_p; // Proxy for the concatenation.
 
     a_p = sc_dt::sc_concat_bool::allocate(a);
-    result_p = sc_dt::sc_concatref::m_pool.allocate();
+    result_p = sc_dt::sc_concatref::pool_allocate();
     result_p->initialize( *a_p, b );
     return *result_p;
 }

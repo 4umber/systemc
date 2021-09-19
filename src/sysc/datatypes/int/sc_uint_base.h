@@ -293,7 +293,12 @@ public:
     void scan( ::std::istream& is = ::std::cin );
 
 protected:
-    static sc_core::sc_vpool<sc_uint_bitref> m_pool;
+    //static sc_core::sc_vpool<sc_uint_bitref> m_pool;
+
+	static sc_uint_bitref* pool_allocate() {
+		static sc_core::sc_vpool<sc_uint_bitref> m_pool(9);
+		return m_pool.allocate();
+	}
 
 };
 
@@ -510,8 +515,12 @@ public:
     void scan( ::std::istream& is = ::std::cin );
 
 protected:
-    static sc_core::sc_vpool<sc_uint_subref> m_pool;
+    //static sc_core::sc_vpool<sc_uint_subref> m_pool;
 
+	static sc_uint_subref* pool_allocate() {
+		static sc_core::sc_vpool<sc_uint_subref> m_pool(9);
+		return m_pool.allocate();
+	}
 };
 
 
@@ -1205,7 +1214,7 @@ sc_uint_bitref&
 sc_uint_base::operator [] ( int i )
 {
     check_index( i );
-    sc_uint_bitref* result_p = sc_uint_bitref::m_pool.allocate();
+    sc_uint_bitref* result_p = sc_uint_bitref::pool_allocate();
     result_p->initialize(this, i);
     return *result_p;
 }
@@ -1215,7 +1224,7 @@ const sc_uint_bitref_r&
 sc_uint_base::operator [] ( int i ) const
 {
     check_index( i );
-    sc_uint_bitref* result_p = sc_uint_bitref::m_pool.allocate();
+    sc_uint_bitref* result_p = sc_uint_bitref::pool_allocate();
     result_p->initialize(this, i);
     return *result_p;
 }
@@ -1226,7 +1235,7 @@ sc_uint_bitref&
 sc_uint_base::bit( int i )
 {
     check_index( i );
-    sc_uint_bitref* result_p = sc_uint_bitref::m_pool.allocate();
+    sc_uint_bitref* result_p = sc_uint_bitref::pool_allocate();
     result_p->initialize(this, i);
     return *result_p;
 }
@@ -1236,7 +1245,7 @@ const sc_uint_bitref_r&
 sc_uint_base::bit( int i ) const
 {
     check_index( i );
-    sc_uint_bitref* result_p = sc_uint_bitref::m_pool.allocate();
+    sc_uint_bitref* result_p = sc_uint_bitref::pool_allocate();
     result_p->initialize(this, i);
     return *result_p;
 }
@@ -1249,7 +1258,7 @@ sc_uint_subref&
 sc_uint_base::operator () ( int left, int right )
 {
     check_range( left, right );
-    sc_uint_subref* result_p = sc_uint_subref::m_pool.allocate();
+    sc_uint_subref* result_p = sc_uint_subref::pool_allocate();
     result_p->initialize(this, left, right);
     return *result_p;
 }
@@ -1259,7 +1268,7 @@ const sc_uint_subref_r&
 sc_uint_base::operator () ( int left, int right ) const
 {
     check_range( left, right );
-    sc_uint_subref* result_p = sc_uint_subref::m_pool.allocate();
+    sc_uint_subref* result_p = sc_uint_subref::pool_allocate();
     result_p->initialize(this, left, right);
     return *result_p;
 }
@@ -1270,7 +1279,7 @@ sc_uint_subref&
 sc_uint_base::range( int left, int right )
 {
     check_range( left, right );
-    sc_uint_subref* result_p = sc_uint_subref::m_pool.allocate();
+    sc_uint_subref* result_p = sc_uint_subref::pool_allocate();
     result_p->initialize(this, left, right);
     return *result_p;
 }
@@ -1280,7 +1289,7 @@ const sc_uint_subref_r&
 sc_uint_base::range( int left, int right ) const
 {
     check_range( left, right );
-    sc_uint_subref* result_p = sc_uint_subref::m_pool.allocate();
+    sc_uint_subref* result_p = sc_uint_subref::pool_allocate();
     result_p->initialize(this, left, right);
     return *result_p;
 }
