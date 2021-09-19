@@ -426,6 +426,18 @@ sc_get_curr_simcontext()
     }
     return sc_curr_simcontext;
 }
+
+inline bool
+sc_set_curr_simcontext(sc_simcontext *context)
+{
+    if( sc_curr_simcontext == 0 ) {
+        sc_default_global_context = context;
+        sc_curr_simcontext = sc_default_global_context;
+		return true;
+    }
+	return false;
+}
+
 #else
     extern SC_API sc_simcontext* sc_get_curr_simcontext();
 #endif // 0
