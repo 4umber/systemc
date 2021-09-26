@@ -78,7 +78,8 @@ add_library (systemc sysc/communication/sc_clock.cpp
                      sysc/communication/sc_port.cpp
                      sysc/communication/sc_prim_channel.cpp
                      sysc/communication/sc_semaphore.cpp
-                     sysc/communication/sc_signal.cpp
+					 sysc/communication/sc_signal.cpp
+					 sysc/communication/sc_callback_signal.cpp
                      sysc/communication/sc_signal_ports.cpp
                      sysc/communication/sc_signal_resolved.cpp
                      sysc/communication/sc_signal_resolved_ports.cpp
@@ -175,7 +176,8 @@ add_library (systemc sysc/communication/sc_clock.cpp
                      sysc/communication/sc_prim_channel.h
                      sysc/communication/sc_semaphore.h
                      sysc/communication/sc_semaphore_if.h
-                     sysc/communication/sc_signal.h
+					 sysc/communication/sc_signal.h
+					 sysc/communication/sc_callback_signal.h
                      sysc/communication/sc_signal_ifs.h
                      sysc/communication/sc_signal_ports.h
                      sysc/communication/sc_signal_resolved.h

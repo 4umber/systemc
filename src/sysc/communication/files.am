@@ -64,6 +64,7 @@ H_FILES += \
 	communication/sc_semaphore.h \
 	communication/sc_semaphore_if.h \
 	communication/sc_signal.h \
+	communication/sc_callback_signal.h \
 	communication/sc_signal_ifs.h \
 	communication/sc_signal_ports.h \
 	communication/sc_signal_resolved.h \
@@ -83,6 +84,7 @@ CXX_FILES += \
 	communication/sc_prim_channel.cpp \
 	communication/sc_semaphore.cpp \
 	communication/sc_signal.cpp \
+	communication/sc_callback_signal.cpp \
 	communication/sc_signal_ports.cpp \
 	communication/sc_signal_resolved.cpp \
 	communication/sc_signal_resolved_ports.cpp
